@@ -13,6 +13,23 @@ namespace ByteBank.SistemaAgencia
     {
         static void Main(string[] args)
         {
+            //TesteHumanize();
+            TesteExtratorValorDeArgumentosURL();
+
+            Console.ReadLine();
+        }
+
+        static void TesteExtratorValorDeArgumentosURL()
+        {           
+            string url = "pagina?moedaOrigem=real&moedaDestino=dolar";
+            ExtratorValorDeArgumentosURL extrator = new ExtratorValorDeArgumentosURL(url);
+
+            Console.WriteLine("moedaOrigem: " + extrator.GetValor("moedaOrigem"));
+            Console.WriteLine("moedaDestino: " + extrator.GetValor("moedaDestino"));
+        }
+
+        static void TesteHumanize()
+        {
             DateTime dataFimPagamento = new DateTime(2018, 6, 20);
             DateTime dataCorrente = DateTime.Now;
 
@@ -21,8 +38,6 @@ namespace ByteBank.SistemaAgencia
             string mensagem = "Vencimento em " + TimeSpanHumanizeExtensions.Humanize(diferenca);
 
             Console.WriteLine(mensagem);
-
-            Console.ReadLine();
         }
     }
 }
