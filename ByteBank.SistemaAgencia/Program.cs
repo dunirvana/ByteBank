@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -11,7 +12,7 @@ using Humanizer;
 
 namespace ByteBank.SistemaAgencia
 {
-    class Program
+    partial class Program
     {
         static void Main(string[] args)
         {
@@ -27,7 +28,18 @@ namespace ByteBank.SistemaAgencia
             //TestaListaDeObject();
             //TestaListaGenerica();
             //TestaSort();
-            TestaWhereEOrderBy();
+            //TestaWhereEOrderBy();
+            //LendoDocumento();
+
+            //LidandoComFileStreamDiretamente();
+            //UsarStreamReader();
+            //CriarArquivo();
+            //EscritaBinaria();
+            //UsarStreamDeEntrada();
+            //LendoTodoTexto();
+            //LendoTodasAsLinhas();
+            DigitandoNoConsole();
+
 
             Console.ReadLine();
         }
@@ -308,6 +320,49 @@ namespace ByteBank.SistemaAgencia
 
             int media = acumulador / idades.Length;
             Console.WriteLine($"Média de idades = {media}");
+        }
+
+        static void LendoDocumento()
+        {
+            var fs = new FileStream("teste.txt", FileMode.Open);
+
+            var buffer = new byte[1024];
+            var encoding = Encoding.ASCII;
+
+            var bytesLidos = fs.Read(buffer, 0, 1024);
+            var conteudoArquivo = encoding.GetString(buffer, 0, bytesLidos);
+
+
+            Console.Write(conteudoArquivo);
+        }
+    
+        static void LendoTodoTexto()
+        {
+            File.WriteAllText("escrevendoComAClasseFile.txt", "Testando File.WriteAllText");
+
+            Console.WriteLine("Arquivo escrevendoComAClasseFile criado!");
+
+            var bytesArquivo = File.ReadAllBytes("contas.txt");
+            Console.WriteLine($"Arquivo contas.txt possui {bytesArquivo.Length} bytes");
+        }
+
+        static void LendoTodasAsLinhas()
+        {
+            var linhas = File.ReadAllLines("contas.txt");
+            Console.WriteLine(linhas.Length);
+
+            foreach (var linha in linhas)
+            {
+                Console.WriteLine(linha);
+            }
+        }
+
+        static void DigitandoNoConsole()
+        {
+            Console.WriteLine("Digite o seu nome:");
+            var nome = Console.ReadLine();
+
+            Console.WriteLine(nome);
         }
     }
 }
